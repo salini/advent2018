@@ -91,6 +91,10 @@ def get_common_letters_in_correct_IDs():
                     return intersection
 
 
+def check():
+    print("- Part 1: {0}".format(get_boxes_ID_checsum()==7936)) #Your puzzle answer was 7936.
+    print("- Part 2: {0}".format(get_common_letters_in_correct_IDs()=="lnfqdscwjyteorambzuchrgpx")) #Your puzzle answer was lnfqdscwjyteorambzuchrgpx.
+
 if __name__ == '__main__':
     print("Part 1: get boxes ID checsum: %d" % get_boxes_ID_checsum())
     print("Part 2: get common letter in correct IDs: %s" % get_common_letters_in_correct_IDs())

@@ -97,7 +97,11 @@ def get_first_frequency_reached_twice():
     return first_frequency_twice
 
 
+def check():
+    print("- Part 1: {0}".format(compute_frequency()==569)) #Your puzzle answer was 569.
+    print("- Part 2: {0}".format(get_first_frequency_reached_twice()==77666)) #Your puzzle answer was 77666.
+
 
 if __name__ == "__main__":
     print("Part 1: final frequency: %d" % compute_frequency())
-    print("Part2: first frequency reached twice: %d" % get_first_frequency_reached_twice())
+    print("Part 2: first frequency reached twice: %d" % get_first_frequency_reached_twice())

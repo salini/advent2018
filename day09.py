@@ -60,6 +60,7 @@ Here are a few more examples:
 What is the winning Elf's score?
 """
 
+from advent.log import show_log, log
 
 class Game(object):
     def __init__(self, nb_players, last_marble):
@@ -177,7 +178,7 @@ class CyclicGame(object):
     def run(self, last_marble):
         for cm in range(1, last_marble + 1): #cm = current marble
             if cm%1000 == 0:
-                print "%.2f%%" % (cm/float(last_marble)*100.0)
+                log("%.2f%%" % (cm/float(last_marble)*100.0))
 
             cp = (cm-1) % self.Nplayer
             if cm % 23 == 0:
@@ -209,8 +210,13 @@ def get_winning_elf_score_with_offset(offset=100):
     return max(game.players)
 
 
+def check():
+    print("- Part 1: {0}".format(get_winning_elf_score()==413188)) #Your puzzle answer was 413188.
+    print("- Part 2: {0}".format(get_winning_elf_score_with_offset()==3377272893)) #Your puzzle answer was 3377272893.
+
 
 if __name__ == '__main__':
+    show_log(True)
     print("Part 1: get winning elf score: %s" % get_winning_elf_score())
     print("Part 2: get winning elf score with offset: %s" % get_winning_elf_score_with_offset())
 

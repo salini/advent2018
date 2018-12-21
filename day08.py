@@ -133,6 +133,12 @@ def get_root_node_value():
     rootval = get_recursive_node_value(root)
     return rootval
 
+
+def check():
+    print("- Part 1: {0}".format(get_sum_of_metadata_entries()==41454)) #Your puzzle answer was 41454.
+    print("- Part 2: {0}".format(get_root_node_value()==25752)) #Your puzzle answer was 25752.
+
+
 if __name__ == '__main__':
     print("Part 1: get sum of metadata entries: %d" % get_sum_of_metadata_entries())
     print("Part 2: get root node value: %d" % get_root_node_value())

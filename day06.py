@@ -192,6 +192,10 @@ def get_area_with_sum_distance_less_than(min_sum_dist=10000):
     return len(w_sum_dist[0])
 
 
+def check():
+    print("- Part 1: {0}".format(get_largest_area()==4171)) #Your puzzle answer was 4171.
+    print("- Part 2: {0}".format(get_area_with_sum_distance_less_than()==39545)) #Your puzzle answer was 39545.
+
 if __name__ == '__main__':
     print("Part 1: get largest area: %d" % get_largest_area())
     print("Part 1: get largest area: %d" % get_area_with_sum_distance_less_than())

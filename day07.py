@@ -48,6 +48,8 @@ So, in this example, the correct order is CABDFE.
 In what order should the steps in your instructions be completed?
 """
 
+from advent.log import show_log, log
+
 class Instruction(object):
     def __init__(self, parent, child):
         self.parent = parent
@@ -130,7 +132,7 @@ def get_ordered_instructions():
         h = list(heads.keys())
         h.sort()
         ordered_instruction += h[0]
-        #print ordered_instruction
+        log(ordered_instruction)
         g.del_node(h[0])
 
     return ordered_instruction
@@ -203,7 +205,7 @@ class PoolOfWorker(object):
 
     def add_task(self, task):
         idx = self.get_available_worker_index()
-        print "assign %s (%d) to worker '%d'" % (task.name, task.time, idx)
+        log("assign %s (%d) to worker '%d'" % (task.name, task.time, idx))
         self.workers[idx] = task
 
     def get_current_tasks(self):
@@ -226,7 +228,7 @@ class PoolOfWorker(object):
         task_finished = []
         for idx in range(len(self.workers)):
             if self.workers[idx] is not None and self.workers[idx].time == 0:
-                print "worker '%d' completed %s" % (idx, self.workers[idx].name)
+                log("worker '%d' completed %s" % (idx, self.workers[idx].name))
                 task_finished.append(self.workers[idx].name)
                 self.workers[idx] = None
 
@@ -247,40 +249,45 @@ def get_time_to_complete():
     pool = PoolOfWorker(5)
 
     while len(g.nodes) or pool.has_tasks_in_process():
-        print "=========== time: %d =============" % T
-        print "remaining: %s (%d)" % (",".join(g.nodes.keys()), len(g.nodes.keys()))
-        print "in process: %s" % [(t.name, t.time)for t in pool.get_current_tasks()]
+        log("=========== time: %d =============" % T)
+        log("remaining: %s (%d)" % (",".join(g.nodes.keys()), len(g.nodes.keys())))
+        log("in process: %s" % [(t.name, t.time)for t in pool.get_current_tasks()])
         heads = g.get_heads()
         sheads = heads.keys()
         sheads.sort()
         for task in pool.get_current_tasks():
             if task.name in sheads:
                 sheads.remove(task.name)
-        print "head tasks: %s || available workers: %d" % (sheads, pool.nb_worker_available())
+        log("head tasks: %s || available workers: %d" % (sheads, pool.nb_worker_available()))
 
-        print "--- assign ------------------"
+        log("--- assign ------------------")
         while len(sheads) and pool.nb_worker_available():
             nname = sheads.pop(0)
             pool.add_node_as_task(heads[nname])
 
-        print "--- process ------------------"
+        log("--- process ------------------")
         t = pool.process_until_one_finishes()
         T += t
         ## one can also do step by step:
         #pool.process(1)
         #T += 1
 
-        print "--- delete completed ------------------"
+        log("--- delete completed ------------------")
         task_finished = pool.del_finished()
         for tname in task_finished:
             g.del_node(tname)
 
-    print "Final time: %d" % T
+    log("Final time: %d" % T)
     return T
 
 
+def check():
+    print("- Part 1: {0}".format(get_ordered_instructions()=="ADEFKLBVJQWUXCNGORTMYSIHPZ")) #Your puzzle answer was ADEFKLBVJQWUXCNGORTMYSIHPZ.
+    print("- Part 2: {0}".format(get_time_to_complete()==1120)) #Your puzzle answer was 1120.
+
 
 if __name__ == '__main__':
+    show_log(True)
     print("Part 1: get ordered instructions: %s" % get_ordered_instructions())
     print("Part 2: get time to complete: %s" % get_time_to_complete())
 

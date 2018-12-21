@@ -147,6 +147,7 @@ What message will eventually appear in the sky?
 import numpy as np
 import pylab as pl
 
+from advent.log import show_log, log
 
 def _manhattan_distance(p0, p1):
     return abs(p0[0]-p1[0]) + abs(p0[1]-p1[1])
@@ -235,21 +236,20 @@ def get_message_in_sky(max_time=100000):
 
     stars_pos0 = np.array([s.pos for s in stars])   # init position
     stars_vel0 = np.array([s.vel for s in stars])   # init velocity
-    print "compute integrated positions..."
+    log( "compute integrated positions...")
     stars_poses = np.array([stars_pos0 + stars_vel0*t for t in range(max_time)])
-    print stars_poses.shape
 
-    print "compute system dimensions..."
+    log("compute system dimensions...")
     stars_sys_dim = _get_stars_systems_dim(stars_poses)
 
-    print "filter possible systems (with small dimensions)..."
+    log("filter possible systems (with small dimensions)...")
     possible_systems = [sp for sp,dim in zip(stars_poses, stars_sys_dim) if all(dim < 2*N)]
-    print "%d possibility" % len(possible_systems)
+    log("%d possibility" % len(possible_systems))
 
-    print "compute connexity..."
+    log("compute connexity...")
     connexity = [(len(_get_subgraphs(sp)),sp) for sp in possible_systems]
     min_connex_size, min_connex = min(connexity, key=lambda x: x[0])
-    print "found with min connexity %d" % min_connex_size
+    log("found with min connexity %d" % min_connex_size)
 
     subgraphs = _get_subgraphs(min_connex)
 
@@ -278,24 +278,29 @@ def get_time_to_get_message(max_time=100000):
 
     stars_pos0 = np.array([s.pos for s in stars])   # init position
     stars_vel0 = np.array([s.vel for s in stars])   # init velocity
-    print "compute integrated positions..."
+    log("compute integrated positions...")
     stars_poses = np.array([stars_pos0 + stars_vel0*t for t in range(max_time)])
-    print stars_poses.shape
 
-    print "compute system dimensions..."
+    log("compute system dimensions...")
     stars_sys_dim = _get_stars_systems_dim(stars_poses)
 
-    print "filter possible systems (with small dimensions)..."
+    log("filter possible systems (with small dimensions)...")
     possible_systems = [(t, sp) for t, sp in enumerate(stars_poses) if all(stars_sys_dim[t] < 2*N)]
-    print "%d possibility" % len(possible_systems)
+    log("%d possibility" % len(possible_systems))
 
-    print "compute connexity..."
+    log("compute connexity...")
     connexity = [(t, len(_get_subgraphs(sp)),sp) for t, sp in possible_systems]
     T, min_connex_size, min_connex = min(connexity, key=lambda x: x[1])
-    print "found at time %d with min connexity %d" % (T, min_connex_size)
+    log("found at time %d with min connexity %d" % (T, min_connex_size))
     return T
 
+
+def check():
+    print("- Part 1: you need to run program and read by yourself") #Your puzzle answer was GEJKHGHZ.
+    print("- Part 2: {0}".format(get_time_to_get_message()==10681)) #Your puzzle answer was 10681.
+
 if __name__ == '__main__':
+    show_log(True)
     print("Part 1: get message in sky: %s" % get_message_in_sky()) #reply "GEJKHGHZ"
     print("Part 2: get time to get message: %s" % get_time_to_get_message())
 

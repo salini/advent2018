@@ -108,12 +108,16 @@ def get_optimize_polymer_units():
     elements = "abcdefghijklmnopqrstuvwxyz"
     res = pool.map(_polymer_opti, list(elements))
     poly_res = dict(zip(elements, res))
-    print poly_res
-    print "==================="
+    #print poly_res
+    #print "==================="
     best_poly = min(poly_res.items(), key=lambda x: x[1])
-    print best_poly
+    #print best_poly
     return best_poly[1]
 
+
+def check():
+    print("- Part 1: {0}".format(get_polymer_units()==10564)) #Your puzzle answer was 10564.
+    print("- Part 2: {0}".format(get_optimize_polymer_units()==6336)) #Your puzzle answer was 6336.
 
 if __name__ == '__main__':
     print("Part 1: get polymer units: %s" % get_polymer_units())

@@ -180,6 +180,10 @@ def get_guard_asleep_regularly_and_minute():
     return guard * min_arg_max
 
 
+def check():
+    print("- Part 1: {0}".format(get_guard_most_asleep_and_minute()==118599)) #Your puzzle answer was 118599.
+    print("- Part 2: {0}".format(get_guard_asleep_regularly_and_minute()==33949)) #Your puzzle answer was 33949.
+
 if __name__ == '__main__':
     print("Part 1: get guard and minute: %d" % get_guard_most_asleep_and_minute())
     print("Part 2: get guard sleeping regularly at same time: %s" % get_guard_asleep_regularly_and_minute())

@@ -125,6 +125,10 @@ def get_non_intersecting_claim_ID():
     return None
 
 
+def check():
+    print("- Part 1: {0}".format(get_intersecting_surface()==110827)) #Your puzzle answer was 110827.
+    print("- Part 2: {0}".format(get_non_intersecting_claim_ID()==116)) #Your puzzle answer was 116.
+
 if __name__ == '__main__':
     print("Part 1: get intersecting surface: %d" % get_intersecting_surface())
     print("Part 1: get non intersecting claim ID: %s" % get_non_intersecting_claim_ID())
